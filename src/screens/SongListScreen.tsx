@@ -247,9 +247,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#1a1a1a",
     borderRadius: 30,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
     flex: 1,
+    
   },
   searchIcon: {
     fontSize: 18,

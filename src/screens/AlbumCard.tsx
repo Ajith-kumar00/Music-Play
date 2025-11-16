@@ -19,10 +19,10 @@ export default function AlbumCard({ title, artist, color, showDownload = false, 
           style={styles.image}
           imageStyle={{ borderRadius: 16 }}
         >
-          {/* <LinearGradient
+          <LinearGradient
             colors={["transparent", "rgba(0,0,0,0.7)"]}
             style={styles.gradient}
-          /> */}
+          />
           {showDownload && (
             <View style={styles.downloadButton}>
               <Text style={styles.downloadEmoji}>⬇️</Text>
@@ -92,8 +92,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#111",
     borderRadius: 10,
     padding: 12,
-    borderWidth: 1,
-    borderColor: "#333",
     marginTop: 10,
   },
   title: {
