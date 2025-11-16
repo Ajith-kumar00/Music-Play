@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, ImageBackground, TouchableOpacity, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import Svg, { Path } from "react-native-svg";
 
 interface AlbumCardProps {
   title: string;
@@ -23,20 +24,75 @@ export default function AlbumCard({ title, artist, color, showDownload = false, 
             colors={["transparent", "rgba(0,0,0,0.7)"]}
             style={styles.gradient}
           />
-          {showDownload && (
-            <View style={styles.downloadButton}>
-              <Text style={styles.downloadEmoji}>⬇️</Text>
-            </View>
-          )}
+         {showDownload && (
+  <View style={styles.downloadButton}>
+   <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
+  {/* Arrow down */}
+  <Path
+    d="M12 3v9"                 // sharp arrow drop
+    stroke="#fff"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+  />
+
+  {/* Sharp arrow head */}
+  <Path
+    d="M8 10l4 4 4-4"           // V shape
+    stroke="#fff"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+
+  {/* Tray (flat line) */}
+  <Path
+    d="M5 17h14"                // straight bottom line
+    stroke="#fff"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+  />
+</Svg>
+
+
+  </View>
+)}
         </ImageBackground>
       ) : (
         <View style={[styles.image, { backgroundColor: color }]}>
           <Text style={styles.placeholderIcon}>🎵</Text>
           {showDownload && (
-            <View style={styles.downloadButton}>
-              <Text style={styles.downloadEmoji}>⬇️</Text>
-            </View>
-          )}
+  <View style={styles.downloadButton}>
+   <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
+  {/* Arrow down */}
+  <Path
+    d="M12 3v9"                 // sharp arrow drop
+    stroke="#fff"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+  />
+
+  {/* Sharp arrow head */}
+  <Path
+    d="M8 10l4 4 4-4"           // V shape
+    stroke="#fff"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+
+  {/* Tray (flat line) */}
+  <Path
+    d="M5 17h14"                // straight bottom line
+    stroke="#fff"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+  />
+</Svg>
+
+
+  </View>
+)}
+
         </View>
       )}
 
