@@ -1,18 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
   Image,
   TouchableOpacity,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { useDownload } from "../context/DownloadContext";
 
 export default function SongDetailsScreen({ route, navigation }: any) {
   const { song } = route.params;
   const insets = useSafeAreaInsets();
+  const { downloadSong, checkDownloadStatus, getDownloadStatus } = useDownload();
+
+  useEffect(() => {
+    checkDownloadStatus(song);
+  }, [song.trackId, checkDownloadStatus]);
+
+  const handleDownloadPress = async () => {
+    const status = getDownloadStatus(song.trackId);
+    
+    if (status?.status === 'completed' || status?.status === 'downloading') {
+      return;
+    }
+
+    await downloadSong(song);
+  };
+
+  const downloadState = getDownloadStatus(song.trackId);
+  const currentStatus = downloadState?.status || 'idle';
+  const progress = downloadState?.progress ?? 0;
+  const isDownloading = currentStatus === 'downloading';
+  const isDownloadedState = currentStatus === 'completed';
 
   return (
     <LinearGradient
@@ -62,9 +85,26 @@ export default function SongDetailsScreen({ route, navigation }: any) {
         </View>
 
         <View style={styles.controls}>
-          <View style={styles.controlBtn}>
-            <Ionicons name="cloud-download-outline" size={22} color="#fff" />
-          </View>
+          <TouchableOpacity 
+            style={[
+              styles.controlBtn,
+              isDownloadedState && styles.controlBtnCompleted,
+              isDownloading && styles.controlBtnDownloading
+            ]}
+            onPress={handleDownloadPress}
+            disabled={isDownloading}
+          >
+            {isDownloading ? (
+              <View style={styles.progressWrapper}>
+                <ActivityIndicator size="small" color="#fff" />
+                <Text style={styles.progressText}>{Math.round(progress * 100)}%</Text>
+              </View>
+            ) : isDownloadedState ? (
+              <Ionicons name="checkmark-circle" size={22} color="#4CAF50" />
+            ) : (
+              <Ionicons name="cloud-download-outline" size={22} color="#fff" />
+            )}
+          </TouchableOpacity>
 
           <View style={styles.playBtn}>
             <Ionicons name="play" size={26} color="#fff" />
@@ -202,6 +242,24 @@ const styles = StyleSheet.create({
     shadowColor: "#ff2d55",
     shadowOpacity: 0.6,
     shadowRadius: 12,
+  },
+  controlBtnCompleted: {
+    backgroundColor: "#2a5a2a",
+    shadowColor: "#2a5a2a",
+  },
+  controlBtnDownloading: {
+    backgroundColor: "#4a2a5a",
+    shadowColor: "#4a2a5a",
+  },
+  progressWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  progressText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+    marginLeft: 8,
   },
   playBtn: {
     width: 80,

@@ -9,6 +9,7 @@ import BottomNav from '../components/BottomNav';
 import AlbumCard from './AlbumCard';
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 type SongListNavProp = StackNavigationProp<RootStackParamList, 'SongList'>;
 
@@ -68,16 +69,21 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
       >
         
         {albumCards.length > 0 ? (
-          albumCards.map((album) => (
-            <AlbumCard
-              key={album.id}
-              title={album.title}
-              artist={album.artist}
-              color={album.color}
-              showDownload={album.showDownload}
-              imageSource={album.artworkUrl ? { uri: album.artworkUrl } : undefined}
-            />
-          ))
+          albumCards.map((album, index) => {
+            const song = songs[index];
+            return (
+              <AlbumCard
+                key={album.id}
+                title={album.title}
+                artist={album.artist}
+                color={album.color}
+                showDownload={album.showDownload}
+                imageSource={album.artworkUrl ? { uri: album.artworkUrl } : undefined}
+                song={song}
+                onPress={() => song && navigation.navigate("SongDetails", { song })}
+              />
+            );
+          })
         ) : (
           <View style={styles.loadingContainer}>
             <Text style={styles.loadingText}>Loading albums...</Text>
@@ -170,7 +176,7 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
   </View>
 
   <TouchableOpacity style={styles.filterButton}>
-    <Text style={styles.filterIcon}>⚙️</Text>
+    <FontAwesome5 name="sliders-h" size={22} color="#fff" style={styles.filterIcon} />
   </TouchableOpacity>
 
 </View>
