@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput, Alert } from 'react-native';
 import { fetchSongs } from '../api/songs';
 import { Song } from '../types/song';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -9,6 +9,8 @@ import BottomNav from '../components/BottomNav';
 import AlbumCard from './AlbumCard';
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useFocusEffect } from '@react-navigation/native';
+import { getStoredUserName, clearStoredUserName } from '../storage/userStorage';
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 type SongListNavProp = StackNavigationProp<RootStackParamList, 'SongList'>;
@@ -20,10 +22,27 @@ interface Props {
 const SongListScreen: React.FC<Props> = ({ navigation }) => {
   const [songs, setSongs] = useState<Song[]>([]);
   const [recentlyPlayed] = useState<Song[]>([]);
+  const [userName, setUserName] = useState<string>('Music Lover');
 
   useEffect(() => {
     loadSongs();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      let isMounted = true;
+      const fetchUser = async () => {
+        const stored = await getStoredUserName();
+        if (isMounted && stored) {
+          setUserName(stored);
+        }
+      };
+      fetchUser();
+      return () => {
+        isMounted = false;
+      };
+    }, [])
+  );
 
   const loadSongs = async () => {
     const data = await fetchSongs("romance");
@@ -42,6 +61,27 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
       artworkUrl: song.artworkUrl100 || song.artworkUrl60,
     }));
   }, [songs]);
+
+  const handleLogout = useCallback(() => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            await clearStoredUserName();
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Login' }],
+            });
+          },
+        },
+      ]
+    );
+  }, [navigation]);
   const renderHeader = () => (
     <View>
       <View style={styles.promoBanner}>
@@ -151,12 +191,12 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
 
 <View style={styles.headerLeft}>
   <Text style={styles.helloText}>Hello</Text>
-  <Text style={styles.userName}>John Johnson</Text>
+  <Text style={styles.userName}>{userName || 'Music Lover'}</Text>
 </View>
 
-<TouchableOpacity style={styles.profileContainer}>
+<TouchableOpacity style={styles.profileContainer} onPress={handleLogout}>
   <View style={styles.profileImage}>
-    <Ionicons name="person-outline" size={22} color="#fff" />
+    <Ionicons name="log-out-outline" size={22} color="#fff" />
   </View>
 </TouchableOpacity>
 

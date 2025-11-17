@@ -23,7 +23,7 @@ export default function SongDetailsScreen({ route, navigation }: any) {
 
   const handleDownloadPress = async () => {
     const status = getDownloadStatus(song.trackId);
-    
+
     if (status?.status === 'completed' || status?.status === 'downloading') {
       return;
     }
@@ -85,7 +85,7 @@ export default function SongDetailsScreen({ route, navigation }: any) {
         </View>
 
         <View style={styles.controls}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
               styles.controlBtn,
               isDownloadedState && styles.controlBtnCompleted,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     gap: 28,
-    marginRight:50
+    marginRight: 50
   },
   controlBtn: {
     width: 65,
@@ -282,8 +282,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    borderWidth:1,
-    borderColor:"rgb(54, 53, 53)",
+    borderWidth: 1,
+    borderColor: "rgb(54, 53, 53)",
   },
   navBtn: {
     width: 45,

@@ -30,7 +30,7 @@ export default function AlbumCard({ title, artist, color, showDownload = false, 
     if (!song) return;
 
     const status = getDownloadStatus(song.trackId);
-    
+
     if (status?.status === 'completed' || status?.status === 'downloading') {
       return;
     }
@@ -47,7 +47,7 @@ export default function AlbumCard({ title, artist, color, showDownload = false, 
     if (!showDownload || !song) return null;
 
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[
           styles.downloadButton,
           isDownloadedState && styles.downloadButtonCompleted,
