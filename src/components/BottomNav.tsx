@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
 
   activeTab: {
-    backgroundColor: "#2b0f20", // dark pink background like screenshot
+    backgroundColor: "#2b0f20",
   },
 
   label: {

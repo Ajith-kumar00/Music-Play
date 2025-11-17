@@ -5,7 +5,6 @@ export const fetchSongs = async (query: string = "love"): Promise<Song[]> => {
     const response = await fetch(
       `https://itunes.apple.com/search?term=${query}&entity=song&limit=30`
     );
-
     if (!response.ok) {
       console.log("API Error:", response.statusText);
       return [];

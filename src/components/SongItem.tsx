@@ -20,30 +20,30 @@ const SongItem: React.FC<Props> = ({ song, onPress }) => {
       </View>
 
       <TouchableOpacity style={styles.downloadButton}>
-      <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
-    {/* Arrow Down */}
-    <Path
-      d="M12 4v8"              // short arrow down
-      stroke="#ff2d72"
-      strokeWidth={2.8}
-      strokeLinecap="round"
-    />
-    <Path
-      d="M8 10l4 4 4-4"        
-      stroke="#ff2d72"
-      strokeWidth={2.8}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+        <Svg width={30} height={30} viewBox="0 0 24 24" fill="none">
 
-    <Path
-      d="M6 16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2"  
-      stroke="#ff2d72"
-      strokeWidth={2.8}
-      strokeLinecap="round"
-    />
-  </Svg>
-</TouchableOpacity>
+          <Path
+            d="M12 4v8"
+            stroke="#ff2d72"
+            strokeWidth={2.8}
+            strokeLinecap="round"
+          />
+          <Path
+            d="M8 10l4 4 4-4"
+            stroke="#ff2d72"
+            strokeWidth={2.8}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          <Path
+            d="M6 16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2"
+            stroke="#ff2d72"
+            strokeWidth={2.8}
+            strokeLinecap="round"
+          />
+        </Svg>
+      </TouchableOpacity>
 
     </TouchableOpacity>
   );
@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 28,
-    backgroundColor: "#220814",   // dark maroon background like your screenshot
+    backgroundColor: "#220814",
     justifyContent: "center",
     alignItems: "center",
   },
-  
+
   image: { width: 60, height: 60, borderRadius: 6, marginRight: 10 },
   title: { color: "#fff", fontSize: 16, fontWeight: "bold" },
   artist: { color: "#aaa", fontSize: 14 },

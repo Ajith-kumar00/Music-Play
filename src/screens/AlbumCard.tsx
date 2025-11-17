@@ -24,79 +24,77 @@ export default function AlbumCard({ title, artist, color, showDownload = false, 
             colors={["transparent", "rgba(0,0,0,0.7)"]}
             style={styles.gradient}
           />
-         {showDownload && (
-  <View style={styles.downloadButton}>
-   <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
-  {/* Arrow down */}
-  <Path
-    d="M12 3v9"                 // sharp arrow drop
-    stroke="#fff"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-  />
+          {showDownload && (
+            <View style={styles.downloadButton}>
+              <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
 
-  {/* Sharp arrow head */}
-  <Path
-    d="M8 10l4 4 4-4"           // V shape
-    stroke="#fff"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  />
-
-  {/* Tray (flat line) */}
-  <Path
-    d="M5 17h14"                // straight bottom line
-    stroke="#fff"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-  />
-</Svg>
+                <Path
+                  d="M12 3v9"
+                  stroke="#fff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
 
 
-  </View>
-)}
+                <Path
+                  d="M8 10l4 4 4-4"
+                  stroke="#fff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                <Path
+                  d="M5 17h14"
+                  stroke="#fff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+              </Svg>
+
+
+            </View>
+          )}
         </ImageBackground>
       ) : (
         <View style={[styles.image, { backgroundColor: color }]}>
           <Text style={styles.placeholderIcon}>🎵</Text>
           {showDownload && (
-  <View style={styles.downloadButton}>
-   <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
-  {/* Arrow down */}
-  <Path
-    d="M12 3v9"                 // sharp arrow drop
-    stroke="#fff"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-  />
+            <View style={styles.downloadButton}>
+              <Svg width={28} height={28} viewBox="0 0 24 24" fill="none">
 
-  {/* Sharp arrow head */}
-  <Path
-    d="M8 10l4 4 4-4"           // V shape
-    stroke="#fff"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  />
-
-  {/* Tray (flat line) */}
-  <Path
-    d="M5 17h14"                // straight bottom line
-    stroke="#fff"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-  />
-</Svg>
+                <Path
+                  d="M12 3v9"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
 
 
-  </View>
-)}
+                <Path
+                  d="M8 10l4 4 4-4"
+                  stroke="#fff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+
+                <Path
+                  d="M5 17h14"
+                  stroke="#fff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+              </Svg>
+
+
+            </View>
+          )}
 
         </View>
       )}
 
-      {/* Album Info */}
+
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.artist}>{artist}</Text>

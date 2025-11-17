@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { View, Text, FlatList, SafeAreaView, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
 import { fetchSongs } from '../api/songs';
 import { Song } from '../types/song';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -7,6 +7,8 @@ import { RootStackParamList } from '../navigation/AppNavigation';
 import SongItem from '../components/SongItem';
 import BottomNav from '../components/BottomNav';
 import AlbumCard from './AlbumCard';
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 type SongListNavProp = StackNavigationProp<RootStackParamList, 'SongList'>;
 
@@ -27,10 +29,8 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
     setSongs(data);
   };
 
-  // Generate colors for album cards
   const colors = ["#1E3A8A", "#8B0000", "#4A4A4A", "#2D5016", "#5A1E5A", "#8B4513"];
 
-  // Create album cards dynamically from songs data
   const albumCards = useMemo(() => {
     return songs.slice(0, 6).map((song, index) => ({
       id: song.trackId,
@@ -41,10 +41,8 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
       artworkUrl: song.artworkUrl100 || song.artworkUrl60,
     }));
   }, [songs]);
-
   const renderHeader = () => (
     <View>
-          {/* Promotional Banner */}
       <View style={styles.promoBanner}>
         <View style={styles.promoContent}>
           <View style={styles.promoLeft}>
@@ -62,7 +60,6 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
           </View>
         </View>
       </View>
-      {/* Horizontal Album Cards Section */}
       <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false}
@@ -90,7 +87,6 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
 
     
 
-      {/* Recently Played Section */}
       <Text style={styles.sectionTitle}>Recently Played</Text>
       {recentlyPlayed.length > 0 ? (
         recentlyPlayed.map((item) => (
@@ -143,23 +139,26 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header Section */}
-      <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <Text style={styles.helloText}>Hello</Text>
-          <Text style={styles.userName}>John Johnson</Text>
-        </View>
-        <View style={styles.profileContainer}>
-          <View style={styles.profileImage}>
-            <Text style={styles.profileIcon}>👤</Text>
-          </View>
-        </View>
-      </View>
+    
+<View style={styles.header}>
 
-      {/* Search Bar Section */}
+
+<View style={styles.headerLeft}>
+  <Text style={styles.helloText}>Hello</Text>
+  <Text style={styles.userName}>John Johnson</Text>
+</View>
+
+<TouchableOpacity style={styles.profileContainer}>
+  <View style={styles.profileImage}>
+    <Ionicons name="person-outline" size={22} color="#fff" />
+  </View>
+</TouchableOpacity>
+
+</View>
+
+
       <View style={styles.searchContainer}>
 
-  {/* Search Bar */}
   <View style={styles.searchBar}>
     <Text style={styles.searchIcon}>🔍</Text>
 
@@ -170,7 +169,6 @@ const SongListScreen: React.FC<Props> = ({ navigation }) => {
     />
   </View>
 
-  {/* Filter Button */}
   <TouchableOpacity style={styles.filterButton}>
     <Text style={styles.filterIcon}>⚙️</Text>
   </TouchableOpacity>
@@ -201,7 +199,6 @@ export default SongListScreen;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#000", padding: 20 },
   listContent: { paddingBottom: 20 },
-  // Header Styles
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -235,7 +232,6 @@ const styles = StyleSheet.create({
   profileIcon: {
     fontSize: 30,
   },
-  // Search Bar Styles
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -275,7 +271,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
   },
-  // Album Cards Styles
   albumScroll: {
     marginBottom: 20,
   },
@@ -322,7 +317,6 @@ const styles = StyleSheet.create({
     color: "#aaa",
     fontSize: 14,
   },
-  // Promotional Banner Styles
   promoBanner: {
     backgroundColor: "#FF1493",
     borderRadius: 20,
@@ -389,7 +383,6 @@ const styles = StyleSheet.create({
   promoImageIcon: {
     fontSize: 50,
   },
-  // Recently Played Styles
   sectionTitle: {
     color: "#fff",
     fontSize: 20,
